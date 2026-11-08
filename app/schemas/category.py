@@ -1,4 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from typing import Annotated
+
+from pydantic import BaseModel, ConfigDict, StringConstraints
+
+NonEmptyString = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 
 class Category(BaseModel):
@@ -9,8 +13,8 @@ class Category(BaseModel):
 
 
 class CategoryCreate(BaseModel):
-    name: str
+    name: NonEmptyString
 
 
 class CategoryUpdate(BaseModel):
-    name: str | None = None
+    name: NonEmptyString | None = None

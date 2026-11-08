@@ -1,4 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from typing import Annotated
+
+from pydantic import BaseModel, ConfigDict, StringConstraints
+
+NonEmptyString = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 
 class TaskRead(BaseModel):
@@ -10,9 +14,9 @@ class TaskRead(BaseModel):
 
 
 class TaskCreate(BaseModel):
-    title: str
+    title: NonEmptyString
 
 
 class TaskUpdate(BaseModel):
     completed: bool | None = None
-    title: str | None = None
+    title: NonEmptyString | None = None

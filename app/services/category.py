@@ -13,8 +13,7 @@ class CategoryService:
 
     def list_category(self) -> list[Category]:
         return [
-            Category.model_validate(item)
-            for item in self.category_repository.get_all()
+            Category.model_validate(item) for item in self.category_repository.get_all()
         ]
 
     def _get_or_404(self, category_id: str) -> CategoryORM:

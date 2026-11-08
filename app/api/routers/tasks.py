@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status
 
 from app.api.dependencies import get_task_service
-from app.schemas.task import TaskRead, TaskCreate, TaskUpdate
+from app.schemas.task import TaskCreate, TaskRead, TaskUpdate
 from app.services.task import TaskService
 
 router = APIRouter(prefix="/tasks")
@@ -13,7 +13,9 @@ def read_tasks(service: TaskService = Depends(get_task_service)) -> list[TaskRea
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-def create_task(payload: TaskCreate, service: TaskService = Depends(get_task_service)) -> TaskRead:
+def create_task(
+    payload: TaskCreate, service: TaskService = Depends(get_task_service)
+) -> TaskRead:
     return service.create_task(payload)
 
 

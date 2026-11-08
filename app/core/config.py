@@ -1,6 +1,6 @@
-from dataclasses import dataclass
 import json
 import os
+from dataclasses import dataclass
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -16,7 +16,9 @@ class Settings:
 
 def get_settings() -> Settings:
     cors_origins = json.loads(os.environ["CORS_ORIGINS"])
-    if not isinstance(cors_origins, list) or not all(isinstance(origin, str) for origin in cors_origins):
+    if not isinstance(cors_origins, list) or not all(
+        isinstance(origin, str) for origin in cors_origins
+    ):
         raise ValueError("CORS_ORIGINS must be a JSON array of strings")
     return Settings(
         database_url=os.environ["DATABASE_URL"],

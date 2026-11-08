@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.models.task import TaskORM
 from app.repositories.task import TaskRepository
-from app.schemas.task import TaskRead, TaskCreate, TaskUpdate
+from app.schemas.task import TaskCreate, TaskRead, TaskUpdate
 
 
 class TaskService:
@@ -13,8 +13,7 @@ class TaskService:
 
     def list_task(self) -> list[TaskRead]:
         return [
-            TaskRead.model_validate(item)
-            for item in self.task_repository.get_all()
+            TaskRead.model_validate(item) for item in self.task_repository.get_all()
         ]
 
     def _get_or_404(self, task_id: str) -> TaskORM:
